@@ -1,2 +1,420 @@
-# new.html
-New Year 2026 project in Html
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Happy New Year 2026</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&family=Pacifico&display=swap"
+        rel="stylesheet">
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: radial-gradient(circle at top, #101b3d, #050812 70%);
+            color: #fff;
+            font-family: Montserrat, system-ui, Arial;
+            overflow: hidden;
+        }
+
+        /* ===== NAME OVERLAY ===== */
+        .name-overlay {
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .55)),
+                url("https://static.vecteezy.com/system/resources/previews/030/201/671/large_2x/beautiful-winter-snowman-for-new-year-and-christmas-free-photo.jpg");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            gap: 20px;
+        }
+
+
+        #nameInput {
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            width: 220px;
+            text-align: center;
+        }
+
+        #submitName {
+            padding: 12px 28px;
+            border-radius: 12px;
+            border: none;
+            background: #ff66b2;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ===== REEL ROOT ===== */
+        .reel-root {
+            width: 100%;
+            height: 100vh;
+            max-width: 1080px;
+            margin: 0 auto;
+            aspect-ratio: 9/16;
+            position: relative;
+            overflow: hidden;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            position: relative;
+            z-index: 10;
+            width: 92%;
+            height: 94%;
+            border-radius: 28px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02));
+            backdrop-filter: blur(10px);
+        }
+
+        .to {
+            font-family: Pacifico;
+            font-size: 44px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: .75;
+            text-align: center;
+        }
+
+        .messages {
+            height: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .typewriter {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 22px;
+            background: #fff;
+            margin-left: 6px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0
+            }
+        }
+
+        .progress {
+            height: 6px;
+            width: 86%;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress i {
+            height: 100%;
+            width: 0%;
+            display: block;
+            background: linear-gradient(90deg, #ff66b2, #ffd166);
+        }
+
+        .credits {
+            font-size: 11px;
+            opacity: .6;
+        }
+
+        /* ===== ⛄ SNOWMEN (ONLY CHANGE HERE) ===== */
+        .emoji-snowman {
+            position: fixed;
+            bottom: 20px;
+            font-size: 220px;
+            z-index: 6;
+            filter:
+                drop-shadow(0 0 18px rgba(255, 255, 255, .6)) drop-shadow(0 14px 20px rgba(0, 0, 0, .7));
+            user-select: none;
+            pointer-events: none;
+            display: none;
+        }
+
+        .emoji-snowman.left {
+            left: -60px;
+        }
+
+        .emoji-snowman.right {
+            right: -65px;
+        }
+
+        /* ===== SNOW ===== */
+        .snow {
+            position: absolute;
+            background: radial-gradient(circle, #fff, #e6f2ff);
+            border-radius: 50%;
+            opacity: .9;
+            filter: blur(.3px);
+            animation: fall linear infinite;
+        }
+
+        .snow-emoji {
+            position: absolute;
+            font-size: 20px;
+            opacity: .9;
+            animation: fall linear infinite;
+            user-select: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(120vh);
+            }
+        }
+
+        /* ===== BALLOONS ===== */
+        .balloon {
+            position: absolute;
+            width: 48px;
+            height: 68px;
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+        }
+
+        .balloon::after {
+            content: "";
+            position: absolute;
+            top: 44px;
+            left: 50%;
+            width: 1px;
+            height: 50px;
+            background: rgba(255, 255, 255, .6);
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(70vh)
+            }
+
+            to {
+                transform: translateY(-120vh) translateX(var(--drift))
+            }
+        }
+
+        /* ===== FIREWORKS ===== */
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            animation: shoot 2.8s linear forwards;
+        }
+
+        @keyframes shoot {
+            to {
+                transform: translateY(-90vh)
+            }
+        }
+
+        .burst {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            to {
+                transform: translate(var(--x), var(--y)) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="name-overlay" id="nameOverlay">
+        <label style="font-size:20px">Enter Name:</label>
+        <input id="nameInput" placeholder="Type here">
+        <button id="submitName">Start</button>
+    </div>
+
+    <div class="emoji-snowman left">⛄</div>
+    <div class="emoji-snowman right">⛄</div>
+
+    <div class="reel-root" id="reel">
+        <div class="card">
+            <div>
+                <div class="to" id="toText">Happy New Year 2026 🎆</div>
+                <div class="subtitle">A new beginning, a fresh journey ❄️</div>
+            </div>
+            <div class="messages">
+                <div class="typewriter" id="messageText">
+                    <span></span><span class="cursor"></span>
+                </div>
+            </div>
+            <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:8px">
+                <div class="progress"><i id="progressFill"></i></div>
+                <div class="credits">Made with ❤️ by Shivmangal Singh</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const submitBtn = document.getElementById("submitName");
+        const nameInput = document.getElementById("nameInput");
+        const nameOverlay = document.getElementById("nameOverlay");
+        const reel = document.getElementById("reel");
+        const toText = document.getElementById("toText");
+        const messageText = document.querySelector("#messageText span");
+        const progressFill = document.getElementById("progressFill");
+        const snowmen = document.querySelectorAll(".emoji-snowman");
+
+        const messages = [
+            "As 2026 begins, may peace fill your heart ❤️ and calm your mind ✨.",
+            "May you find strength in every challenge 💪 and light in every dark moment 🌟.",
+            "May happiness slowly grow in your home 🏡, bringing smiles, warmth, and togetherness.",
+            "A new year means new hope 🌅 — leave behind fear, doubt, and everything that held you back.",
+            "Keep believing in yourself ✨, keep growing every day 🌱, and remember how far you’ve already come.",
+            "May this year be gentle with your soul ❄️ and kind to your dreams 🌠.",
+            "Let patience guide you, discipline shape you, and hard work lead you forward 🚀.",
+            "Stay kind at heart ❤️, respect your parents 🙏, and value every moment of time.",
+            "Even on difficult days, trust yourself and never stop learning 📖.",
+            "No matter what you faced before, 2026 is a fresh beginning 🌅 — and you are stronger, wiser, and braver than ever 💖."
+        ];
+
+        submitBtn.onclick = () => {
+            const name = nameInput.value.trim();
+            if (!name) return;
+
+            toText.textContent = `Happy New Year 2026, ${name} 🎆`;
+            nameOverlay.style.display = "none";
+            reel.style.display = "flex";
+            snowmen.forEach(s => s.style.display = "block");
+
+            startSnow();
+            startEmojiSnow();
+            startBalloons();
+            startFireworks();
+            runMessages();
+        };
+
+        async function runMessages() {
+            for (let txt of messages) {
+                messageText.textContent = "";
+                progressFill.style.width = "0%";
+                for (let i = 0; i < txt.length; i++) {
+                    messageText.textContent += txt[i];
+                    progressFill.style.width = ((i + 1) / txt.length * 100) + "%";
+                    await new Promise(r => setTimeout(r, 30));
+                }
+                progressFill.style.width = "100%";
+                await new Promise(r => setTimeout(r, 1200));
+            }
+        }
+
+        function startSnow() {
+            for (let i = 0; i < 160; i++) {
+                const s = document.createElement("div");
+                s.className = "snow";
+                const size = Math.random() * 4 + 2;
+                s.style.width = s.style.height = size + "px";
+                s.style.left = Math.random() * 100 + "vw";
+                s.style.top = "-10vh";
+                s.style.animationDuration = (22 + Math.random() * 14) + "s";
+                s.style.animationDelay = Math.random() * -30 + "s";
+                document.body.appendChild(s);
+            }
+        }
+        function startEmojiSnow() {
+            for (let i = 0; i < 35; i++) {
+                const e = document.createElement("div");
+                e.className = "snow-emoji";
+                e.textContent = "❄️";
+                e.style.left = Math.random() * 100 + "vw";
+                e.style.top = "-10vh";
+                e.style.animationDuration = (24 + Math.random() * 16) + "s";
+                e.style.animationDelay = Math.random() * -30 + "s";
+                document.body.appendChild(e);
+            }
+        }
+
+        function startBalloons() {
+
+            // 🎈 show one balloon immediately
+            const b = document.createElement("div");
+            b.className = "balloon";
+            b.style.background = `radial-gradient(circle at 30% 30%, #fff, hsl(${Math.random() * 360},90%,60%))`;
+            b.style.left = Math.random() * 100 + "vw";
+            b.style.setProperty("--drift", (Math.random() * 40 - 20) + "px");
+            b.style.animationDuration = (18 + Math.random() * 4) + "s";
+            b.style.animationDelay = "-6s";
+            document.body.appendChild(b);
+            setTimeout(() => b.remove(), 30000);
+
+            // 🎈 then keep creating balloons
+            setInterval(() => {
+                const b = document.createElement("div");
+                b.className = "balloon";
+                b.style.background = `radial-gradient(circle at 30% 30%, #fff, hsl(${Math.random() * 360},90%,60%))`;
+                b.style.left = Math.random() * 100 + "vw";
+                b.style.setProperty("--drift", (Math.random() * 40 - 20) + "px");
+                b.style.animationDuration = (18 + Math.random() * 4) + "s";
+                document.body.appendChild(b);
+                setTimeout(() => b.remove(), 30000);
+            }, 400);
+        }
+
+        function startFireworks() {
+            setInterval(() => {
+                const f = document.createElement("div");
+                f.className = "firework";
+                f.style.left = Math.random() * 100 + "vw";
+                f.style.bottom = "0";
+                document.body.appendChild(f);
+
+                setTimeout(() => {
+                    const cx = Math.random() * 100 + "vw";
+                    const cy = Math.random() * 80 + "vh";
+                    for (let i = 0; i < 70; i++) {
+                        const b = document.createElement("div");
+                        b.className = "burst";
+                        b.style.background = `hsl(${Math.random() * 360},100%,65%)`;
+                        b.style.left = cx;
+                        b.style.top = cy;
+                        b.style.setProperty("--x", (Math.random() * 500 - 250) + "px");
+                        b.style.setProperty("--y", (Math.random() * 500 - 250) + "px");
+                        document.body.appendChild(b);
+                        setTimeout(() => b.remove(), 1600);
+                    }
+                    f.remove();
+                }, 2800);
+            }, 1500);
+        }
+    </script>
+
+</body>
+
+</html>
